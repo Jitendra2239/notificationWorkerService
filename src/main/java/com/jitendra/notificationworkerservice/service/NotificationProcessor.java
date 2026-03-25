@@ -21,14 +21,16 @@ public class NotificationProcessor {
         log.info("Processing notification: {}", event.getType());
 
         switch (event.getType()) {
+            case "SHIPMENT_CREATED":
             case "ORDER_CREATED":
             case "PAYMENT_SUCCESS":
                 sendSafe(() -> emailService.send(event));
-                sendSafe(() -> pushService.send(event));
+                sendSafe(() -> smsService.send(event));
                 break;
 
             case "ORDER_CANCELLED":
             case "PAYMENT_FAILED":
+            case "SHIPMENT_FAILED":
                 sendSafe(() -> emailService.send(event));
                 sendSafe(() -> smsService.send(event));
                 sendSafe(() -> pushService.send(event));

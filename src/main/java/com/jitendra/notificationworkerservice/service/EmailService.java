@@ -34,17 +34,15 @@ public class EmailService {
     }
 
     private String buildMessage(NotificationEvent event) {
-        switch (event.getType()) {
-            case "PAYMENT_SUCCESS":
-                return "Payment successful for Order #" + event.getOrder_id();
-            case "PAYMENT_FAILED":
-                return "Payment failed for Order #" + event.getOrder_id();
-            case "ORDER_PLACED":
-                return "Your order #" + event.getOrder_id() + " has been placed successfully!";
-            case "ORDER_CANCELLED":
-                return "Your order #" + event.getOrder_id() + " has been cancelled.";
-            default:
-                return "Update for Order #" + event.getOrder_id();
-        }
+        if (event == null) return null;
+
+        return switch (event.getType()) {
+            case "PAYMENT_SUCCESS" -> "Payment successful for Order #" + event.getOrder_id();
+            case "PAYMENT_FAILED" -> "Payment failed for Order #" + event.getOrder_id();
+            case "ORDER_CANCELLED" -> "Order #" + event.getOrder_id() + " has been cancelled";
+            case  "SHIPMENT_CREATED"-> "Shipment successful for Order #" + event.getOrder_id();
+            case "SHIPMENT_FAIELD"-> "Shipment failed for Order #" + event.getOrder_id();
+            default -> "Notification for Order #" + event.getOrder_id() + " has been sent";
+        };
     }
 }

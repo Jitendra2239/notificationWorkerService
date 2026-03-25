@@ -16,7 +16,7 @@ public class FirebaseConfig {
     @PostConstruct
     public void init() throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream(new ClassPathResource("firebase-service-account.json").getFile());
+                new FileInputStream(new ClassPathResource("smartecommercenotifications-firebase-adminsdk-fbsvc-f376f65ed7.json").getFile());
 
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
